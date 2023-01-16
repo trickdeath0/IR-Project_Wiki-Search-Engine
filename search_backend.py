@@ -33,7 +33,7 @@ nltk.download('stopwords')
 #~~~~       2.1 GCP                                                                                  ~~~~
 #~~~~         2.1.1 inverted_body_with_stemming                                                      ~~~~
 #~~~~         2.1.2 inverted_title_with_stemming                                                     ~~~~
-#~~~~        2.1.3 DL                                                                                ~~~~
+#~~~~         2.1.3 DL                                                                               ~~~~
 #~~~~         2.1.4 NF                                                                               ~~~~
 #~~~~   3. Helper Functions                                                                          ~~~~
 #~~~~       3.1 tokenization Query                                                                   ~~~~
@@ -43,7 +43,7 @@ nltk.download('stopwords')
 #~~~~         4.1.1 booleanRanking                                                                   ~~~~
 #~~~~       4.2 BM25                                                                                 ~~~~
 #~~~~         4.2.1 calc_idf                                                                         ~~~~
-#~~~~         4.2.2 BM25_and_binary_search                                                           ~~~~                                                                ~~~~
+#~~~~         4.2.2 BM25_and_binary_search                                                           ~~~~
 #~~~~       4.3 Cosine Similarity                                                                    ~~~~
 #~~~~         4.3.1 search_body_implement                                                            ~~~~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,18 +73,6 @@ os.environ["GCLOUD_PROJECT"] = "ir-ass3-84763"
 bucket_name = 'project_ir_os'  # project_ir_os
 client = storage.Client()
 bucket = client.bucket(bucket_name)
-
-# body with stemming index from bucket
-index_src = "index_body_with_stemming.pkl"
-blob_index = bucket.blob(f"postings_gcp_body_with_stemming/{index_src}")
-pickel_in = blob_index.download_as_string()
-inverted_body_with_stemming = pickle.loads(pickel_in)
-
-# title with stemming index from bucket
-index_src = "index_title_with_stemming.pkl"
-blob_index = bucket.blob(f"postings_gcp_title_with_stemming/{index_src}")
-pickel_in = blob_index.download_as_string()
-inverted_title_with_stemming = pickle.loads(pickel_in)
 
 # This will be usefully for the calculation of AVGDL (utilized in BM25)
 # DL from bucket
@@ -268,7 +256,7 @@ def BM25_and_binary_search(inverted_body, inverted_title, query, k1=1.5, b=0.75,
             else:
                 merge_res[docTitle] = merge_res.get(docTitle) * BODY_WEIGHT + TITLE_WEIGHT * scoreTitle
 
-    return returnTopNdocWithTitles(inverted_title=inverted_title, searchDictVal=merge_res, N=100)
+    return returnTopNdocWithTitles(inverted_title=inverted_title, searchDictVal=merge_res, N=20) ###
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
