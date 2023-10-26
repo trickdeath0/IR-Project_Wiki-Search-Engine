@@ -1,4 +1,4 @@
-# $\color{blue}{IR-Project_Wiki-Search-Engine}$
+# IR-Project_Wiki-Search-Engine
 
 ![Logo](https://media1.giphy.com/media/l7GBQWmAdtLzkjGEiF/giphy.gif)
 
